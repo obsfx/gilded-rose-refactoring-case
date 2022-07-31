@@ -42,7 +42,6 @@ describe("Gilded Rose", () => {
   });
 
   it("aged brie increases in quality the older it gets", () => {
-    // 2 * 1 + 8 * 2 = 18, // 5 * 1 + 5 * 2 = 15
     const items = [new Item("Aged Brie", 2, 0), new Item("Aged Brie", 5, 0)];
 
     const gildedRose = new GildedRose(items);
@@ -145,8 +144,16 @@ describe("Gilded Rose", () => {
     expect(updatedItems[1].quality).toBe(0);
   });
 
-  // TODO:
-  // conjured items degrade in quality as fast as normal items
+  it("conjured items degrade in quality twice as fast as normal items", () => {
+    const items = [new Item("Conjured Mana Cake", 12, 48), new Item("Conjured Mana Cake", 16, 36)];
+
+    const gildedRose = new GildedRose(items);
+    iterateUpdateQualityNTimes(gildedRose, 16);
+    const updatedItems = gildedRose.getItems();
+
+    expect(updatedItems[0].quality).toBe(8);
+    expect(updatedItems[1].quality).toBe(4);
+  });
 
   // TODO:
   // items with same identifiers but different names
