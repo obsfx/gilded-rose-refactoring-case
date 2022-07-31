@@ -155,6 +155,21 @@ describe("Gilded Rose", () => {
     expect(updatedItems[1].quality).toBe(4);
   });
 
-  // TODO:
-  // items with same identifiers but different names
+  it("should behave same for the items with the same identifiers but have different names", () => {
+    const items = [
+      new Item("Backstage passes to a SOMETHINGOTHER concert", 10, 20),
+      new Item("Backstage passes to a SOMETHINGOTHER concert", 16, 8),
+      new Item("Aged SOMETHING", 2, 0),
+      new Item("Conjured SOMETHING", 2, 14),
+    ];
+
+    const gildedRose = new GildedRose(items);
+    iterateUpdateQualityNTimes(gildedRose, 4);
+    const updatedItems = gildedRose.getItems();
+
+    expect(updatedItems[0].quality).toBe(28);
+    expect(updatedItems[1].quality).toBe(12);
+    expect(updatedItems[2].quality).toBe(6);
+    expect(updatedItems[3].quality).toBe(2);
+  });
 });
