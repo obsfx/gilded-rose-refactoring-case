@@ -141,4 +141,7 @@ describe("Gilded Rose", () => {
 
   // TODO:
   // conjured items degrade in quality as fast as normal items
+
+  // TODO:
+  // items with same identifiers but different names
 });

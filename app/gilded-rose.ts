@@ -21,12 +21,12 @@ export class Item {
 //// this conjured item does not work properly yet
 //new Item("Conjured Mana Cake", 3, 6)];
 
-export const ItemIdentifier = {
-  AGED: "aged",
-  SULFURAS: "sulfuras",
-  BACKSTAGE_PASSES: "backstage pass",
-  CONJURED: "conjured",
-};
+export enum ItemIdentifier {
+  AGED = "aged",
+  SULFURAS = "sulfuras",
+  BACKSTAGE_PASSES = "backstage passes",
+  CONJURED = "conjured",
+}
 
 export class GildedRose {
   items: Array<Item>;
@@ -35,54 +35,59 @@ export class GildedRose {
     this.items = items;
   }
 
+  isIdentifiedBy(name: string, identifier: ItemIdentifier) {
+    return name.toLowerCase().includes(identifier);
+  }
+
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
+      const item = this.items[i];
       // --
       if (
-        this.items[i].name != "Aged Brie" &&
-        this.items[i].name != "Backstage passes to a TAFKAL80ETC concert"
+        !this.isIdentifiedBy(item.name, ItemIdentifier.AGED) &&
+        !this.isIdentifiedBy(item.name, ItemIdentifier.BACKSTAGE_PASSES)
       ) {
-        if (this.items[i].quality > 0) {
-          if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-            this.items[i].quality = this.items[i].quality - 1;
+        if (item.quality > 0) {
+          if (!this.isIdentifiedBy(item.name, ItemIdentifier.SULFURAS)) {
+            item.quality = item.quality - 1;
           }
         }
       } else {
-        if (this.items[i].quality < 50) {
-          this.items[i].quality = this.items[i].quality + 1;
-          if (this.items[i].name == "Backstage passes to a TAFKAL80ETC concert") {
-            if (this.items[i].sellIn < 11) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
+        if (item.quality < 50) {
+          item.quality = item.quality + 1;
+          if (this.isIdentifiedBy(item.name, ItemIdentifier.BACKSTAGE_PASSES)) {
+            if (item.sellIn < 11) {
+              if (item.quality < 50) {
+                item.quality = item.quality + 1;
               }
             }
-            if (this.items[i].sellIn < 6) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
+            if (item.sellIn < 6) {
+              if (item.quality < 50) {
+                item.quality = item.quality + 1;
               }
             }
           }
         }
       }
       // --
-      if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-        this.items[i].sellIn = this.items[i].sellIn - 1;
+      if (!this.isIdentifiedBy(item.name, ItemIdentifier.SULFURAS)) {
+        item.sellIn = item.sellIn - 1;
       }
       // --
-      if (this.items[i].sellIn < 0) {
-        if (this.items[i].name != "Aged Brie") {
-          if (this.items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
-            if (this.items[i].quality > 0) {
-              if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-                this.items[i].quality = this.items[i].quality - 1;
+      if (item.sellIn < 0) {
+        if (!this.isIdentifiedBy(item.name, ItemIdentifier.AGED)) {
+          if (!this.isIdentifiedBy(item.name, ItemIdentifier.BACKSTAGE_PASSES)) {
+            if (item.quality > 0) {
+              if (!this.isIdentifiedBy(item.name, ItemIdentifier.SULFURAS)) {
+                item.quality = item.quality - 1;
               }
             }
           } else {
-            this.items[i].quality = this.items[i].quality - this.items[i].quality;
+            item.quality = item.quality - item.quality;
           }
         } else {
-          if (this.items[i].quality < 50) {
-            this.items[i].quality = this.items[i].quality + 1;
+          if (item.quality < 50) {
+            item.quality = item.quality + 1;
           }
         }
       }
