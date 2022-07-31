@@ -1,4 +1,5 @@
-import { Item, GildedRose } from "@/gilded-rose";
+import { GildedRose } from "@/gilded-rose";
+import { Item } from "@/Item";
 
 const iterateUpdateQualityNTimes = (gildedRoseInstance: GildedRose, n: number) => {
   for (let i = 0; i < n; i++) {
