@@ -21,11 +21,11 @@ export class Item {
 //// this conjured item does not work properly yet
 //new Item("Conjured Mana Cake", 3, 6)];
 
-export const SpecialItem = {
-  AGED_BRIE: "Aged Brie",
-  SULFURAS: "Sulfuras, Hand of Ragnaros",
-  BACKSTAGE_PASSES: "Backstage passes to a TAFKAL80ETC concert",
-  CONJURED_ITEM: "Conjured",
+export const ItemIdentifier = {
+  AGED: "aged",
+  SULFURAS: "sulfuras",
+  BACKSTAGE_PASSES: "backstage pass",
+  CONJURED: "conjured",
 };
 
 export class GildedRose {
@@ -37,6 +37,7 @@ export class GildedRose {
 
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
+      // --
       if (
         this.items[i].name != "Aged Brie" &&
         this.items[i].name != "Backstage passes to a TAFKAL80ETC concert"
@@ -63,9 +64,11 @@ export class GildedRose {
           }
         }
       }
+      // --
       if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
         this.items[i].sellIn = this.items[i].sellIn - 1;
       }
+      // --
       if (this.items[i].sellIn < 0) {
         if (this.items[i].name != "Aged Brie") {
           if (this.items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
@@ -83,6 +86,7 @@ export class GildedRose {
           }
         }
       }
+      // --
     }
   }
 
