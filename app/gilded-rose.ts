@@ -35,11 +35,15 @@ export class GildedRose {
   }
 
   getUpdatedBackstagePassItemQuality(item: Item) {
-    if (item.sellIn > 10) {
+    if (item.sellIn + 1 <= 0) {
+      return 0;
+    }
+
+    if (item.sellIn + 1 > 10) {
       return this.getUpdatedQuality(item.quality);
     }
 
-    if (item.sellIn <= 10 && item.sellIn > 5) {
+    if (item.sellIn + 1 <= 10 && item.sellIn + 1 > 5) {
       return this.getUpdatedQuality(item.quality, 2);
     }
 
@@ -58,34 +62,26 @@ export class GildedRose {
       const isBackstagePassItem = this.isIdentifiedBy(item.name, ItemIdentifier.BACKSTAGE_PASSES);
       const isAgedItem = this.isIdentifiedBy(item.name, ItemIdentifier.AGED);
 
-      if (doesQualityDecrease) {
-        item.quality = this.getUpdatedQuality(item.quality, -1);
-      }
-
-      if (isBackstagePassItem) {
-        item.quality = this.getUpdatedBackstagePassItemQuality(item);
-      }
-
-      if (isAgedItem) {
-        item.quality = this.getUpdatedQuality(item.quality);
-      }
-
       if (doesSellInDecrease) {
         item.sellIn = item.sellIn - 1;
       }
 
-      if (doesQualityDecrease && item.sellIn < 0) {
-        item.quality = this.getUpdatedQuality(item.quality, -1);
+      if (doesQualityDecrease) {
+        const qualityChange = item.sellIn < 0 ? -2 : -1;
+        item.quality = this.getUpdatedQuality(item.quality, qualityChange);
+        continue;
       }
 
-      if (isBackstagePassItem && item.sellIn < 0) {
-        item.quality = 0;
+      if (isBackstagePassItem) {
+        item.quality = this.getUpdatedBackstagePassItemQuality(item);
+        continue;
       }
 
-      if (isAgedItem && item.sellIn < 0) {
-        item.quality = this.getUpdatedQuality(item.quality);
+      if (isAgedItem) {
+        const qualityChange = item.sellIn < 0 ? 2 : 1;
+        item.quality = this.getUpdatedQuality(item.quality, qualityChange);
+        continue;
       }
-      // --
     }
   }
 
