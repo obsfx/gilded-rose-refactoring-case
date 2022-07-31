@@ -8,7 +8,7 @@ const iterateUpdateQualityNTimes = (gildedRoseInstance: GildedRose, n: number) =
 };
 
 describe("Gilded Rose", () => {
-  it("sell by date passed, quality degrades twice as fast", () => {
+  it("should ensure that sell by date passed, quality degrades twice as fast", () => {
     const items = [
       new Item("+10 Dexterity Vest", 6, 17),
       new Item("+5 Dexterity Vest", -1, 12),
@@ -24,7 +24,7 @@ describe("Gilded Rose", () => {
     expect(updatedItems[2].quality).toBe(6);
   });
 
-  it("quality of an item is never negative", () => {
+  it("should ensure that quality of an item is never negative", () => {
     const items = [
       new Item("Aged Brie", 1, 0),
       new Item("Backstage passes", 1, 2),
@@ -41,7 +41,7 @@ describe("Gilded Rose", () => {
     }
   });
 
-  it("aged brie increases in quality the older it gets", () => {
+  it("should ensure that aged brie increases in quality the older it gets", () => {
     const items = [new Item("Aged Brie", 2, 0), new Item("Aged Brie", 5, 0)];
 
     const gildedRose = new GildedRose(items);
@@ -52,7 +52,7 @@ describe("Gilded Rose", () => {
     expect(updatedItems[1].quality).toBe(15);
   });
 
-  it("quality of an item is never more than 50", () => {
+  it("should ensure that quality of an item is never more than 50", () => {
     const items = [
       new Item("Aged Brie", 2, 45),
       new Item("Aged Brie", 5, 42),
@@ -69,7 +69,7 @@ describe("Gilded Rose", () => {
     }
   });
 
-  it("sulfuras never decreases in quality", () => {
+  it("should never decrease sulfuras quality", () => {
     const items = [
       new Item("Sulfuras, Hand of Ragnaros", 0, 80),
       new Item("Sulfuras, Hand of Ragnaros", -1, 80),
@@ -84,7 +84,7 @@ describe("Gilded Rose", () => {
     }
   });
 
-  it("backstage passes, like aged brie, increases in quality as its sellIn value approaches", () => {
+  it("should increase backstage passes quality as its sellIn value approaches", () => {
     const items = [
       new Item("Backstage passes to a TAFKAL80ETC concert", 16, 8),
       new Item("Backstage passes to a TAFKAL80ETC concert", 20, 4),
@@ -102,7 +102,7 @@ describe("Gilded Rose", () => {
     expect(updatedItems[3].quality).toBe(15);
   });
 
-  it("backstage passes increases in quality by 2 when there are 10 days or less", () => {
+  it("should increase backstage passes quality by 2 when there are 10 days or less", () => {
     const items = [
       new Item("Backstage passes to a TAFKAL80ETC concert", 10, 20),
       new Item("Backstage passes to a TAFKAL80ETC concert", 9, 12),
@@ -116,7 +116,7 @@ describe("Gilded Rose", () => {
     expect(updatedItems[1].quality).toBe(20);
   });
 
-  it("backstage passes increases in quality by 3 when there are 5 days or less", () => {
+  it("should increase backstage passes quality by 3 when there are 5 days or less", () => {
     const items = [
       new Item("Backstage passes to a TAFKAL80ETC concert", 8, 20),
       new Item("Backstage passes to a TAFKAL80ETC concert", 7, 12),
@@ -130,7 +130,7 @@ describe("Gilded Rose", () => {
     expect(updatedItems[1].quality).toBe(28);
   });
 
-  it("backstage passes quality drops to 0 after the concert", () => {
+  it("should drop backstage passes quality to 0 after the concert", () => {
     const items = [
       new Item("Backstage passes to a TAFKAL80ETC concert", 12, 40),
       new Item("Backstage passes to a TAFKAL80ETC concert", 14, 50),
@@ -144,7 +144,7 @@ describe("Gilded Rose", () => {
     expect(updatedItems[1].quality).toBe(0);
   });
 
-  it("conjured items degrade in quality twice as fast as normal items", () => {
+  it("should degrade in conjured items quality twice as fast as normal items", () => {
     const items = [new Item("Conjured Mana Cake", 12, 48), new Item("Conjured Mana Cake", 16, 36)];
 
     const gildedRose = new GildedRose(items);
