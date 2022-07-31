@@ -9,14 +9,19 @@ const iterateUpdateQualityNTimes = (gildedRoseInstance: GildedRose, n: number) =
 
 describe("Gilded Rose", () => {
   it("sell by date passed, quality degrades twice as fast", () => {
-    const items = [new Item("+5 Dexterity Vest", -1, 12), new Item("Broken Shield", -2, 14)];
+    const items = [
+      new Item("+10 Dexterity Vest", 6, 17),
+      new Item("+5 Dexterity Vest", -1, 12),
+      new Item("Broken Shield", -2, 14),
+    ];
 
     const gildedRose = new GildedRose(items);
     iterateUpdateQualityNTimes(gildedRose, 4);
     const updatedItems = gildedRose.getItems();
 
-    expect(updatedItems[0].quality).toBe(4);
-    expect(updatedItems[1].quality).toBe(6);
+    expect(updatedItems[0].quality).toBe(13);
+    expect(updatedItems[1].quality).toBe(4);
+    expect(updatedItems[2].quality).toBe(6);
   });
 
   it("quality of an item is never negative", () => {

@@ -74,7 +74,7 @@ export class GildedRose {
         item.sellIn = item.sellIn - 1;
       }
 
-      if (doesQualityDecrease) {
+      if (doesQualityDecrease && item.sellIn < 0) {
         item.quality = this.getUpdatedQuality(item.quality, -1);
       }
 
